@@ -2,7 +2,7 @@ import ajax from "./ajax";
 
 //http://localhost:3000/web/xlmc
 // const BASE_URL = '/api';
-const BASE_URL='http://10.25.6.122:3000'
+const BASE_URL='http://localhost:3000'
 //本地服务器
 //1.定义基础路线
 export const getHomeData = ()=>ajax(BASE_URL+'/web/api/departmentList');

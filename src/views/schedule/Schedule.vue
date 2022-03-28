@@ -1,6 +1,6 @@
 <template>
   <div class="schedule">
-    <van-calendar
+    <!-- <van-calendar
     :max-date= this.maxDate
     :show-title="false"
     :show-subtitle="false"
@@ -10,7 +10,9 @@
     color="#2faf84"
     :show-mark="false"
     :style="{ height: '500px' }"
-    />
+    /> -->
+    <div style="text-align:center">{{month}} 月</div>
+    <VueCalendarWeek :today=null @click="onConfirm" v-model="today" />
     <div class="doc">
         <VisitingDoctor v-for="(item,index) in this.doctors" :key="index" :sDate="selectedDate" :doc="item" />
     </div>
@@ -18,21 +20,25 @@
 </template>
 
 <script>
+import VueCalendarWeek from "vue-calendar-week"
 import VisitingDoctor from './VisitingDoctor'
 import {getDocByDay} from '@/service/api/index.js'
 export default {
-    components:{VisitingDoctor},
+    components:{VisitingDoctor,VueCalendarWeek },
     data(){
         return{
             maxDate:null,
             day:null,
             date:null,
             selectedDate:new Date(new Date().setHours(0,0,0,0)).getTime(),
-            doctors:[]
+            doctors:[],
+            today:new Date(),
+            month:null
         }
     },
     created(){
         let curDate = new Date()
+        this.month = curDate.getMonth()+1;
         this.date = curDate.getDate();
         this.day = curDate.getDay();
         this.maxDate = new Date(curDate.getTime()+24*60*60*1000*7);
@@ -40,14 +46,13 @@ export default {
         this.get_doc_by_day(this.$route.query.s_id,this.selectedDate)
     },
     mounted(){
-        let calendar = document.querySelectorAll('.van-calendar__days')[0];
-        // calendar.innerHTML = '';
-        console.log(calendar.children);
-        // let a = calendar.querySelectorAll('div');
+        console.log(this.selectedDate);
     },
     methods:{
         onConfirm(date) {
-            this.selectedDate = date.getTime();
+            let new_date = new Date(date.setHours(0,0,0,0));
+            this.month = new_date.getMonth()+1
+            this.selectedDate = new_date.getTime();
             this.get_doc_by_day(this.$route.query.s_id,this.selectedDate)
             console.log(this.selectedDate);
         },
@@ -67,8 +72,8 @@ export default {
     position: relative;
 }
 .doc{
-    position: absolute;
-    top: 210px;
+    /* position: absolute;
+    top: 210px; */
     width: 100%;
     height: 20rem;
     background-color: #fff;
