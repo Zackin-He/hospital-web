@@ -5,7 +5,7 @@ import ajax from "./ajax";
 const BASE_URL='http://localhost:3000'
 //本地服务器
 //1.定义基础路线
-export const getHomeData = ()=>ajax(BASE_URL+'/web/api/departmentList');
+export const getHomeData = ()=>ajax(BASE_URL+'/web/api/getDepartments');
 //添加医师
 export const addDoctor = ()=>ajax(BASE_URL+'/web/api/addDoc');
 //根据科室和时间查询医师
