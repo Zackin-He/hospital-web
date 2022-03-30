@@ -13,7 +13,13 @@ export const getDocByDay = (s_id,date)=>ajax(BASE_URL+'/web/api/getDocByDay?time
 //根据id查询医师
 export const getDocById = (dID)=>ajax(BASE_URL+'/web/api/getDocById?time='+new Date(),{dID});
 //添加预约单
-export const addOrder = (pName,pID,pTel,pDocID,treatDate,treatTime)=>ajax(BASE_URL+'/web/api/addOrder',
-{pName,pID,pTel,pDocID,treatDate,treatTime},'post');
-export const findOrder = (pName,pID)=>ajax(BASE_URL+'/web/api/findOrder',
-{pName,pID},'post');
+export const addOrder = (pName,pID,pTel,pDocID,treatDate,treatTime,email)=>ajax(BASE_URL+'/web/api/addOrder',
+{pName,pID,pTel,pDocID,treatDate,treatTime,email},'post');
+export const findOrder = (email)=>ajax(BASE_URL+'/web/api/findOrder',
+{email},'post');
+//获取验证码
+export const getCode = (email)=>ajax(BASE_URL+'/web/api/getCode',{email},'post');
+//登录
+export const loginByEmail = (email,code)=>ajax(BASE_URL+'/web/api/loginByEmail',{email,code},'post');
+//取消预约
+export const cancelOrder = (regNumber,pDocID,treatDate,treatTime)=>ajax(BASE_URL+'/web/api/cancelOrder',{regNumber,pDocID,treatDate,treatTime},'post');

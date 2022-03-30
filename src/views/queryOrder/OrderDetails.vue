@@ -1,6 +1,7 @@
 <template>
   <div class="orderDetals">
-    <van-cell-group>
+    <van-swipe-cell :disabled='flag'>
+      <div><van-cell-group>
       <van-cell title="患者姓名" :value="this.order.pName" />
     </van-cell-group>
     <van-cell-group>
@@ -20,17 +21,23 @@
     </van-cell-group>
     <van-cell-group>
       <van-cell title="就诊时段" center value-class="rightValue" :value="this.time" :label="this.date" />
-    </van-cell-group>
+    </van-cell-group></div>
+    <template #right>
+    <van-button square @click="deleteOrder" text="取消预约" type="danger" class="delete-button" />
+  </template>
+    </van-swipe-cell>
   </div>
 </template>
 
 <script>
+import {cancelOrder} from '@/service/api/index.js'
 export default {
   props:{order:Object},
   data(){
     return{
       time:'',
-      date:null
+      date:null,
+      flag:true
     }
   },
   created(){
@@ -55,6 +62,32 @@ export default {
       let month = (date1.getMonth() + 1)<10?'0'+(date1.getMonth() + 1)+'-':(date1.getMonth() + 1)+'-';
       let day = date1.getDate()<10?'0'+date1.getDate():date1.getDate();
       this.date = year+month+day;
+      this.canCancel();
+  },
+  methods:{
+    async deleteOrder(){
+      console.log(this.order);
+      //regNumber,pDocID,treatDate,treatTime
+      let res = await cancelOrder(this.order.regNumber,this.order.pDocID,this.order.treatDate,this.order.treatTime);
+      if (res.status===200) {
+        this.$toast.success('取消预约成功')
+        location.reload();
+      }
+      console.log(res);
+    },
+    canCancel(){
+      let timeObj = {
+        am1: 1000 * 60 * 60 * 9,
+        am2: 1000 * 60 * 60 * 10,
+        pm1: 1000 * 60 * 60 * 14,
+        pm2: 1000 * 60 * 60 * 15
+      }
+      let treatTime = this.order.treatDate + timeObj[this.order.treatTime];
+      let nowTime = new Date().getTime();
+      if (treatTime-nowTime>=1000*60*60*5) {
+        this.flag = false
+      }
+    }
   }
 }
 </script>
@@ -71,4 +104,8 @@ export default {
 .regNumbder{
   color: orange;
 }
+.delete-button {
+    height: 100%;
+  }
+
 </style>

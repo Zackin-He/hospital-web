@@ -8,6 +8,16 @@ const routes = [
     redirect:'/home'
   },
   {
+    path:'/login',
+    name:'Login',
+    component:function () {
+      return import(/* webpackChunkName: "about" */ '../views/login/Login.vue')
+    },
+    meta: {
+      title: '登录'   
+    }
+  },
+  {
     path:'/home',
     name:'Home',
     component:function () {
@@ -73,6 +83,23 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to,from,next)=>{
+  let email = localStorage.getItem('email');
+  if (to.path == '/login') {
+    if (email) {
+      next('/home')
+    }else{
+      next()
+    }
+  }else{
+    if (email) {
+      next()
+    }else{
+      next('/login')
+    }
+  }
 })
 
 export default router

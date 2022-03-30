@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import VueWechatTitle from 'vue-wechat-title'
 
-import { Button,Search,Calendar,Tab,Tabs,Cell, CellGroup,Field,Toast,Icon ,Empty  ,Dialog   } from 'vant'
+import { Button,Search,Calendar,Tab,Tabs,Cell, Form,CellGroup,Field,Toast,Icon ,Empty  ,Dialog ,SwipeCell,Popup  } from 'vant'
 import 'vant/lib/index.css'
 
 Vue.use(VueWechatTitle)
@@ -20,7 +20,10 @@ Vue.use(Field);
 Vue.use(Toast);
 Vue.use(Icon);
 Vue.use(Empty);
-Vue.use(Dialog)
+Vue.use(SwipeCell)
+Vue.use(Dialog);
+Vue.use(Popup);
+Vue.use(Form)
 
 //4.引入rem
 import '@/config/rem.js'

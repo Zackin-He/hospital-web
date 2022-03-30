@@ -29,7 +29,7 @@
                 </van-cell-group>
             </van-tab>
             <van-tab title="医师介绍">
-                <p class="intro">人美声甜，是个富婆，长得又好看，声音又好听，我超喜欢的。</p>
+                <p class="intro">{{doctor.dIntroduction}}</p>
             </van-tab>
         </van-tabs>
 

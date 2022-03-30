@@ -1,15 +1,8 @@
 <template>
     <div>
-        <h4 class="title">挂号查询</h4>
-        <van-cell-group>
-            <van-field v-model="pName" label="患者姓名" placeholder="请输入患者姓名" />
-            <van-field v-model="pIDCard" label="身份证号" maxlength=18 placeholder="请输入身份证号" />
-        </van-cell-group>
-        <div class="btn">
-            <van-button type="info" @click="find_order">查询挂号记录</van-button>
-        </div>
-        <h4 class="title" v-show="this.results.length>0">查询结果</h4>
-        <van-empty v-if="flag" description="暂无该患者的预约记录" />
+        <h4 class="title">查询结果</h4>
+        <div style="text-align:center;color:#ccc;font-size:0.8rem">(温馨提示：左滑可以取消24小时后的预约)</div>
+        <van-empty v-if="flag" description="暂无该用户的预约记录" />
         <div class="queryResults">
             <OrderDetails v-for="(item,index) in this.results" :key="index" :order="item" />
         </div>
@@ -23,15 +16,17 @@ import {findOrder} from '@/service/api/index.js'
         components:{OrderDetails},
         data() {
             return {
-                pName: '',
-                pIDCard: '',
                 results:[],
                 flag:false
             }
         },
+        created(){
+            this.find_order()
+        },
         methods:{
             async find_order(){
-                let res = await findOrder(this.pName,this.pIDCard);
+                let email = localStorage.getItem('email')
+                let res = await findOrder(email);
                 this.results = res.data.reverse();
                 if (this.results.length==0) {
                     this.flag = true;

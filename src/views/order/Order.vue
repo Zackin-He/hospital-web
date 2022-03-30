@@ -40,10 +40,12 @@
         time: null,
         pName: '',
         pIDCard: '',
-        pTel: ''
+        pTel: '',
+        email:''
       }
     },
     created() {
+      this.email = localStorage.getItem('email')
       this.get_doc_byID(this.$route.query.dID);
       let date1 = new Date(parseInt(this.$route.query.date));
       let year = date1.getFullYear() + '-';
@@ -82,7 +84,7 @@
             let pDocID = parseInt(this.$route.query.dID);
             let treatDate = parseInt(this.$route.query.date);
             let treatTime = this.$route.query.time;
-            let res = await addOrder(this.pName, this.pIDCard, parseInt(this.pTel), pDocID, treatDate, treatTime);
+            let res = await addOrder(this.pName, this.pIDCard, parseInt(this.pTel), pDocID, treatDate, treatTime,this.email);
             if (res.status_code == 200) {
               this.$toast.success('预约成功')
               this.$router.push('/home')

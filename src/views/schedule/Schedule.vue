@@ -15,6 +15,7 @@
     <VueCalendarWeek :today=null @click="onConfirm" v-model="today" />
     <div class="doc">
         <VisitingDoctor v-for="(item,index) in this.doctors" :key="index" :sDate="selectedDate" :doc="item" />
+        <van-empty v-if="this.doctors.length<=0" description="暂无医生出诊" />
     </div>
   </div>
 </template>
@@ -30,9 +31,9 @@ export default {
             maxDate:null,
             day:null,
             date:null,
-            selectedDate:new Date(new Date().setHours(0,0,0,0)).getTime(),
+            selectedDate:new Date(new Date().setHours(0,0,0,0)).getTime()+24*60*60*1000,
             doctors:[],
-            today:new Date(),
+            today:new Date(new Date().getTime()+24*60*60*1000),
             month:null
         }
     },
@@ -54,12 +55,12 @@ export default {
             this.month = new_date.getMonth()+1
             this.selectedDate = new_date.getTime();
             this.get_doc_by_day(this.$route.query.s_id,this.selectedDate)
-            console.log(this.selectedDate);
+            // console.log(this.selectedDate);
         },
         async get_doc_by_day(s_id,date){
             let res = await getDocByDay(s_id,date);
             this.doctors = res.doc;
-            console.log(this.doctors);
+            // console.log(this.doctors);
         },
         
     }
