@@ -21,7 +21,7 @@
                             <van-field v-model="email" center clearable label="邮箱" placeholder="请输入邮箱"
                                 :rules="[{ required: true }]">
                                 <template #button>
-                                    <van-button size="small" :disabled="false" @click="get_code" type="primary">获取验证码
+                                    <van-button size="small" :disabled="disabled" @click="get_code" type="primary">{{time}}
                                     </van-button>
                                 </template>
                             </van-field>
@@ -48,6 +48,8 @@
             return {
                 email: '',
                 code: '',
+                time:'获取验证码',
+                disabled:false
             }
         },
         methods: {
@@ -58,6 +60,19 @@
                         position: 'top',
                     });
                 } else {
+                    this.disabled = true;
+                    let time1 = 60;
+                    let timer = setInterval(()=>{
+                        if (time1>0) {
+                            time1--;
+                            this.time = '重新获取'+time1
+                        }else{
+                            this.disabled = false
+                            this.time = '获取验证码'
+                            clearInterval(timer)
+                        }
+                        
+                    },1000)
                     let res = await getCode(this.email);
                     console.log(res);
                 }
