@@ -118,7 +118,7 @@
         justify-content: center;
     }
 
-    .van-field__label {
-        width: 2.5rem;
+   ::v-deep .van-field__label {
+        width: 2.5rem !important;
     }
 </style>

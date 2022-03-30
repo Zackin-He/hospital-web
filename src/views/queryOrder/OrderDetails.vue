@@ -84,7 +84,7 @@ export default {
       }
       let treatTime = this.order.treatDate + timeObj[this.order.treatTime];
       let nowTime = new Date().getTime();
-      if (treatTime-nowTime>=1000*60*60*5) {
+      if (treatTime-nowTime>=1000*60*60*24) {
         this.flag = false
       }
     }
