@@ -1,18 +1,23 @@
 <template>
   <div class="schedule">
-    <!-- <van-calendar
+    <van-calendar
     :max-date= this.maxDate
     :show-title="false"
-    :show-subtitle="false"
+    :show-subtitle="true"
     :poppable="false"
     :show-confirm="false"
     @confirm="onConfirm"
     color="#2faf84"
     :show-mark="false"
-    :style="{ height: '500px' }"
-    /> -->
-    <div style="text-align:center">{{month}} 月</div>
-    <VueCalendarWeek :today=null @click="onConfirm" v-model="today" />
+    :style="{ height: '150px' }"
+    />
+    <!-- <div style="text-align:center">{{month}} 月</div>
+    <VueCalendarWeek :today=null @click="onConfirm" v-model="today" /> -->
+    <!-- <van-calendar
+  :poppable="false"
+  :show-confirm="false"
+  :style="{ height: '600px' }"
+/> -->
     <div class="doc">
         <VisitingDoctor v-for="(item,index) in this.doctors" :key="index" :sDate="selectedDate" :doc="item" />
         <van-empty v-if="this.doctors.length<=0" description="暂无医生出诊" />
@@ -48,6 +53,20 @@ export default {
     },
     mounted(){
         console.log(this.selectedDate);
+        // this.$nextTick(()=>{
+        //     let div = document.querySelector('.calendars-slider-week');
+        //     let active = document.querySelector('.active');
+        //     let ps= active.previousSibling;
+        //     ps.style.color = '#ccc'
+        //     for (let i = 0; i < 7; i++) {
+        //         if (ps.previousSibling) {
+        //             ps= ps.previousSibling;
+        //             ps.style.color = '#ccc'
+        //         }
+        //     }
+        //     console.log(active);
+        //     // div.style.color = '#ccc'
+        // })
     },
     methods:{
         onConfirm(date) {
@@ -87,6 +106,9 @@ export default {
     z-index: 1000;
 }
 .van-calendar__days{
-    top: -128px;
+    top: -250px;
+}
+.van-calendar__month-title{
+top: 250px;
 }
 </style>
