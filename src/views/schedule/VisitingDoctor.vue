@@ -2,7 +2,8 @@
   <div class="v_doctor">
       <div class="content" @click="flag&&scheduleDetail()">
          <div class="d_left">
-            <img src="./../../picture/pic1.png" alt="">
+            <img :src="this.doc.dImage==''?this.defaultImage:this.doc.dImage" alt="">
+            <!-- <img src="./../../picture/pic1.png" alt=""> -->
             <div class="docName">
               {{this.doc.dName}}<br/>
               <span>{{this.doc.docTitle}}</span>
@@ -22,7 +23,8 @@ export default {
     data(){
         return{
             count:0,
-            flag:false
+            flag:false,
+            defaultImage:'/img/pic1.1a8a1505.png'
         }
     },
     created(){

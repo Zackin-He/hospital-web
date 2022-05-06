@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// import 'amfe-flexible'
 import VueWechatTitle from 'vue-wechat-title'
 
 import { Button,Search,Calendar,Tab,Tabs,Cell, Form,CellGroup,Field,Toast,Icon ,Empty  ,Dialog ,SwipeCell,Popup  } from 'vant'

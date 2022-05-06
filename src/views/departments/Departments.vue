@@ -119,7 +119,8 @@
 
   .wrapper-left {
     float: left;
-    height: 40rem;
+    /* height: 40rem; */
+    height: calc(100vh - 54px);
     width: 8rem;
     overflow: hidden;
     background: #F2F7F7;

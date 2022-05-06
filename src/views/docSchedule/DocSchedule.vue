@@ -2,7 +2,7 @@
     <div class="v_doctor">
         <div class="content">
             <div class="d_left">
-                <img src="./../../picture/pic1.png" alt="">
+                <img :src="this.doctor.dImage?this.doctor.dImage:this.defaultImage" alt="">
                 <div class="docName">
                     {{this.doctor.dName}}<br />
                     <span>{{this.doctor.docTitle}}</span>
@@ -16,16 +16,16 @@
                     <van-cell title-style="color:#aaa" :title="this.date" value="更多日期" />
                 </van-cell-group>
                 <van-cell-group @click="book('am1')">
-                    <van-cell label-class="cell_label"  title="上午" :value="this.schedule.am1" :center="true" label="09:00~10:00" />
+                    <van-cell label-class="cell_label"  title="上午" :value="this.schedule.am1==0 ? '已满诊' : this.schedule.am1" :center="true" label="09:00~10:00" />
                 </van-cell-group>
                 <van-cell-group @click="book('am2')">
-                    <van-cell label-class="cell_label"  title="上午" :value="this.schedule.am2" :center="true" label="10:00~11:00" />
+                    <van-cell label-class="cell_label"  title="上午" :value="this.schedule.am2==0 ? '已满诊' : this.schedule.am2" :center="true" label="10:00~11:00" />
                 </van-cell-group>
                 <van-cell-group @click="book('pm1')">
-                    <van-cell label-class="cell_label"  title="下午" :value="this.schedule.pm1" :center="true" label="14:00~15:00" />
+                    <van-cell label-class="cell_label"  title="下午" :value="this.schedule.pm1==0 ? '已满诊' : this.schedule.pm1" :center="true" label="14:00~15:00" />
                 </van-cell-group>
                 <van-cell-group @click="book('pm2')">
-                    <van-cell label-class="cell_label"  title="下午" :value="this.schedule.pm2" :center="true" label="15:00~16:00" />
+                    <van-cell label-class="cell_label"  title="下午" :value="this.schedule.pm2==0 ? '已满诊' : this.schedule.pm2" :center="true" label="15:00~16:00" />
                 </van-cell-group>
             </van-tab>
             <van-tab title="医师介绍">
@@ -44,7 +44,8 @@ import {getDocById} from '@/service/api/index.js'
                 active: 0,
                 doctor:{},
                 date:null,
-                schedule:{}
+                schedule:{},
+                defaultImage:'./../../picture/pic1.png'
             };
         },
         created(){
@@ -70,6 +71,9 @@ import {getDocById} from '@/service/api/index.js'
                 });
             },
             book(time){
+                if (this.schedule[time]==0) {
+                    return
+                }
                 this.$router.push('/order?dID='+this.doctor.dID+'&date='+this.$route.query.date+'&time='+time)
             }
         }

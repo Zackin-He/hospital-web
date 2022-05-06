@@ -15,8 +15,8 @@ export const getDocById = (dID)=>ajax(BASE_URL+'/web/api/getDocById?time='+new D
 //添加预约单
 export const addOrder = (pName,pID,pTel,pDocID,treatDate,treatTime,email)=>ajax(BASE_URL+'/web/api/addOrder',
 {pName,pID,pTel,pDocID,treatDate,treatTime,email},'post');
-export const findOrder = (email)=>ajax(BASE_URL+'/web/api/findOrder',
-{email},'post');
+export const findOrder = (email,startTime,endTime)=>ajax(BASE_URL+'/web/api/findOrder',
+{email,startTime,endTime},'post');
 //获取验证码
 export const getCode = (email)=>ajax(BASE_URL+'/web/api/getCode',{email},'post');
 //登录
